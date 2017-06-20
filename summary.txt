@@ -6,3 +6,5 @@ Create the domain models for "Make" and "Model" and relate them using the MakeId
 
 In VSCode, when we don't have NuGet package console, we add packages using the following syntax:
 $ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+We create a DbContext and configure it for use with dependancy injection
