@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using ngVega.Models;
 
 namespace ngVega.Persistence
 {
@@ -8,5 +9,7 @@ namespace ngVega.Persistence
         {
 
         }
+        // We don't need to explicitly import the Model class because it is implicitly discovered as it is linked to Makes
+        public DbSet<Make> Makes { get; set; }
     }
 }

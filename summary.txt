@@ -8,3 +8,7 @@ In VSCode, when we don't have NuGet package console, we add packages using the f
 $ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
 We create a DbContext and configure it for use with dependancy injection
+
+Install Microsoft.EntityFrameworkCore.Design
+
+Make sure to add domain models to DbContext file in order to create migrations
