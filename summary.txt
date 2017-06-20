@@ -12,3 +12,6 @@ We create a DbContext and configure it for use with dependancy injection
 Install Microsoft.EntityFrameworkCore.Design
 
 Make sure to add domain models to DbContext file in order to create migrations
+
+We can use  $ dotnet ef database update MIGRATION_NAME to downgrade the database.
+We can use 0 in place of the MIGRATION_NAME to revert the database to its original empty domain state
