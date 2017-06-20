@@ -19,3 +19,9 @@ We can use 0 in place of the MIGRATION_NAME to revert the database to its origin
 When creating domain resources, ensure there are no loops existing between resources
 
 Add AutoMapper & AutoMapper.Extensions.Microsoft.DependencyInjection --version 1.2.0
+
+Create Feature model and corresponding resource (without data annotations).
+Add Feature->FeatureResource mapping to MappingProfile.
+Add Feature DbSet to DbContext.
+Create migration to add Feature table to database.
+Seed Features.
