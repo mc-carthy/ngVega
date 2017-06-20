@@ -20,6 +20,7 @@ namespace Vega
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                // This line allows us to use appsettings.Development.json to override appsettings.json (or for Production)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -31,7 +32,7 @@ namespace Vega
         public void ConfigureServices(IServiceCollection services)
         {
             // Instead of hard-coding the connection string below, we'll set it as a variable elsewhere
-            services.AddDbContext<VegaDbContext>(options => options.UseSqlServer("..."));
+            services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             // Add framework services.
             services.AddMvc();
         }
