@@ -7,7 +7,7 @@ Create the domain models for "Make" and "Model" and relate them using the MakeId
 In VSCode, when we don't have NuGet package console, we add packages using the following syntax:
 $ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 
-We create a DbContext and configure it for use with dependancy injection
+We create a DbContext and configure it for use with dependency injection
 
 Install Microsoft.EntityFrameworkCore.Design
 
@@ -25,3 +25,11 @@ Add Feature->FeatureResource mapping to MappingProfile.
 Add Feature DbSet to DbContext.
 Create migration to add Feature table to database.
 Seed Features.
+
+In order to use the AngularCLI, ensure the latest version is installed using the  $ sudo npm install @angular/cli@latest -g command
+Create a dummy project on desktop using the $ ng new hello-world, you can cancel the command once it starts install npm modules
+Copy the .angular-cli.json file to your project root directory
+Change the ["apps"]["root"] value to the name of your root Angular directory (ClientApp in this case)
+Install AngularCLI as a dev dependency using  $ npm install @angular/cli@latest --save-dev
+Create new components in your component folder using the command  $ ng g component COMPONENT_NAME
+Delete the COMPONENT_NAME.component.spec.ts, it's a unit test file which will throw errors if Jasmine is not installed
