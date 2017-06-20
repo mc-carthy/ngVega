@@ -1,3 +1,5 @@
 Set ASPNETCORE_ENVIRONMENT variable to Development/Production as required in ~/.bash_profile
 
 Add dotnet watch command in NgVega.csproj
+
+Create the domain models for "Make" and "Model" and relate them using the MakeId foreign key
