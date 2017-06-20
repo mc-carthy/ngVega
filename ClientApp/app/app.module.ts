@@ -23,6 +23,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
