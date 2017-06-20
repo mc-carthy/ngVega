@@ -11,6 +11,7 @@ namespace ngVega.Mapping
             // Ensure the property names match in order for AutoMapper to work correctly
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResource>();
+            CreateMap<Feature, FeatureResource>();
         }
     }
 }
