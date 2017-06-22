@@ -25,6 +25,8 @@ namespace ngVega.Mapping
 
             // API Resource to Domain
             CreateMap<VehicleResource, Vehicle>()
+                // This is required to prevent the mapping attempting to change the primary key which will throw an error
+                .ForMember(v => v.Id, opt => opt.Ignore())
                 .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
                 .ForMember(v => v.ContactPhone, opt => opt.MapFrom(vr => vr.Contact.Email))
                 .ForMember(v => v.ContactPhone, opt => opt.MapFrom(vr => vr.Contact.Phone))

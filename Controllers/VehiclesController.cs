@@ -8,7 +8,7 @@ using ngVega.Persistence;
 
 namespace ngVega.Controllers
 {
-    [Route("/api/vehicles")]
+    [Route("/api/vehicles/")]
     public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
@@ -31,22 +31,30 @@ namespace ngVega.Controllers
                 return BadRequest(ModelState);
             }
 
-            // This is required for API validation which will be unnecessary as we're calling our 
-            // API populated by the form which gets data from our database.
-            // If a malicious user tries to tamper with it, they will get a 500 error with no detail.
-            /*
-            var model = await context.Models.FindAsync(vehicleResource.ModelId);
-            if (model == null)
-            {
-                ModelState.AddModelError("ModelId", "Invalid ModelId");
-                return BadRequest(ModelState);
-            }
-             */
-
             var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
             
             context.Vehicles.Add(vehicle);
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+            return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateVehicle(int id, [FromBody] VehicleResource vehicleResource)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var vehicle = await context.Vehicles.FindAsync(id);
+
+            mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
+            vehicle.LastUpdate = DateTime.Now;
+            
             await context.SaveChangesAsync();
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
