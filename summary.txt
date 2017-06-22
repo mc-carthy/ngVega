@@ -46,3 +46,6 @@ Then becomes:
 Feature(1)----(n)VehicleFeature(n)----(1)Vehicle
 
 VehicleFeature then gets a composite primary key constructed from its Feature and Vehicle ids. This is set in the DbContext file.
+
+Create VehicleResource to prevent malicious user submitting data to the domain class. Create a contact resource class to simplify the API.
+Change the Feature list to accept integers instead of Features to simplify API.
