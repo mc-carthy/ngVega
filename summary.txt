@@ -35,3 +35,14 @@ Create new components in your component folder using the command  $ ng g compone
 Delete the COMPONENT_NAME.component.spec.ts, it's a unit test file which will throw errors if Jasmine is not installed
 
 Add feature service and render checkboxes for each feature on new vehicle form
+
+
+Implementing a many to many relationship in EFCore at this point in time requires the use of a mapping class. In this instance, VehicleFeature.
+
+Feature(n)----(n)Vehicle
+
+Then becomes:
+
+Feature(1)----(n)VehicleFeature(n)----(1)Vehicle
+
+VehicleFeature then gets a composite primary key constructed from its Feature and Vehicle ids. This is set in the DbContext file.
