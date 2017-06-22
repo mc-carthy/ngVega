@@ -22,7 +22,22 @@ namespace ngVega.Controllers
             this.context = context;
             this.mapper = mapper;
         }
-        // This use of a Domain class as a parameter is temporary until we implement the API Resource
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehicle(int id)
+        {
+            var vehicle = await context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+            
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+
+            return Ok(vehicleResource);
+        }
+
         // The [FromBody] attribute tells the method that the data for the properties are set in the body of the request
         [HttpPost()]
         public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
