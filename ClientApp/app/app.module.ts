@@ -11,6 +11,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 
 import { MakeService } from './services/make.service';
+import { FeatureService } from './services/feature.service';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -35,7 +36,8 @@ import { MakeService } from './services/make.service';
         ])
     ],
     providers: [
-        MakeService
+        MakeService,
+        FeatureService
     ]
 })
 export class AppModule {

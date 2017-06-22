@@ -33,3 +33,5 @@ Change the ["apps"]["root"] value to the name of your root Angular directory (Cl
 Install AngularCLI as a dev dependency using  $ npm install @angular/cli@latest --save-dev
 Create new components in your component folder using the command  $ ng g component COMPONENT_NAME
 Delete the COMPONENT_NAME.component.spec.ts, it's a unit test file which will throw errors if Jasmine is not installed
+
+Add feature service and render checkboxes for each feature on new vehicle form
