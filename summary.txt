@@ -49,3 +49,4 @@ VehicleFeature then gets a composite primary key constructed from its Feature an
 
 Create VehicleResource to prevent malicious user submitting data to the domain class. Create a contact resource class to simplify the API.
 Change the Feature list to accept integers instead of Features to simplify API.
+
