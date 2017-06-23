@@ -43,7 +43,7 @@ namespace ngVega.Controllers
         // The [FromBody] attribute tells the method that the data for the properties are set in the body of the request
         [HttpPost()]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
-        {
+        {          
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
