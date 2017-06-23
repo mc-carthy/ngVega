@@ -75,3 +75,5 @@ All links to EF are now in the Persistence folder. If we decide to switch/add an
 Layers vs Tiers:
 3-tiered architecture refers to client machine, web server and database server.
 3-layered architecture (can) refer to Presentation, Business and Data Access layers.
+
+Zones are used for calling functions before or after a given function that has been placed in a zone.
