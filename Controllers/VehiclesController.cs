@@ -59,7 +59,15 @@ namespace ngVega.Controllers
             context.Vehicles.Add(vehicle);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+            vehicle = await context.Vehicles
+                .Include(v => v.Features)
+                    // ThenInclude is a nested include, so we're getting the Feature of the VehicleFeature of the Vehicle here
+                    .ThenInclude(vf => vf.Feature)
+                .Include(v => v.Model)
+                    .ThenInclude(m => m.Make)
+                .SingleOrDefaultAsync(v => v.Id == vehicle.Id);
+
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
             return Ok(result);
         }
@@ -72,7 +80,13 @@ namespace ngVega.Controllers
                 return BadRequest(ModelState);
             }
 
-            var vehicle = await context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+            var vehicle = await context.Vehicles
+                .Include(v => v.Features)
+                    // ThenInclude is a nested include, so we're getting the Feature of the VehicleFeature of the Vehicle here
+                    .ThenInclude(vf => vf.Feature)
+                .Include(v => v.Model)
+                    .ThenInclude(m => m.Make)
+                .SingleOrDefaultAsync(v => v.Id == id);
 
             if (vehicle == null)
             {
@@ -84,7 +98,7 @@ namespace ngVega.Controllers
             
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+            var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
             return Ok(result);
         }
