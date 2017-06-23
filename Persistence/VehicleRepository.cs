@@ -4,7 +4,7 @@ using ngVega.Models;
 
 namespace ngVega.Persistence
 {
-    public class VehicleRepository
+    public class VehicleRepository : IVehicleRepository
     {
         private readonly VegaDbContext context;
         public VehicleRepository(VegaDbContext context)

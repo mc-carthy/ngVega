@@ -14,11 +14,14 @@ namespace ngVega.Controllers
     {
         private readonly IMapper mapper;
         private readonly VegaDbContext context;
+        private readonly IVehicleRepository repository;
         public VehiclesController(
             IMapper mapper,
-            VegaDbContext context
+            VegaDbContext context,
+            IVehicleRepository repository
         )
         {
+            this.repository = repository;
             this.context = context;
             this.mapper = mapper;
         }
@@ -26,14 +29,7 @@ namespace ngVega.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicle(int id)
         {
-            var vehicle = await context.Vehicles
-                .Include(v => v.Features)
-                    // ThenInclude is a nested include, so we're getting the Feature of the VehicleFeature of the Vehicle here
-                    .ThenInclude(vf => vf.Feature)
-                .Include(v => v.Model)
-                    .ThenInclude(m => m.Make)
-                .SingleOrDefaultAsync(v => v.Id == id);
-            
+            var vehicle = await repository.GetVehicle(id);
             if (vehicle == null)
             {
                 return NotFound();
@@ -55,17 +51,11 @@ namespace ngVega.Controllers
 
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
-            
+
             context.Vehicles.Add(vehicle);
             await context.SaveChangesAsync();
 
-            vehicle = await context.Vehicles
-                .Include(v => v.Features)
-                    // ThenInclude is a nested include, so we're getting the Feature of the VehicleFeature of the Vehicle here
-                    .ThenInclude(vf => vf.Feature)
-                .Include(v => v.Model)
-                    .ThenInclude(m => m.Make)
-                .SingleOrDefaultAsync(v => v.Id == vehicle.Id);
+            vehicle = await repository.GetVehicle(vehicle.Id);
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
@@ -80,13 +70,7 @@ namespace ngVega.Controllers
                 return BadRequest(ModelState);
             }
 
-            var vehicle = await context.Vehicles
-                .Include(v => v.Features)
-                    // ThenInclude is a nested include, so we're getting the Feature of the VehicleFeature of the Vehicle here
-                    .ThenInclude(vf => vf.Feature)
-                .Include(v => v.Model)
-                    .ThenInclude(m => m.Make)
-                .SingleOrDefaultAsync(v => v.Id == id);
+            var vehicle = await repository.GetVehicle(id);
 
             if (vehicle == null)
             {
@@ -95,7 +79,7 @@ namespace ngVega.Controllers
 
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
             vehicle.LastUpdate = DateTime.Now;
-            
+
             await context.SaveChangesAsync();
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
@@ -107,7 +91,7 @@ namespace ngVega.Controllers
         public async Task<IActionResult> DeleteVehicle(int id)
         {
             var vehicle = await context.Vehicles.FindAsync(id);
-            
+
             if (vehicle == null)
             {
                 return NotFound();

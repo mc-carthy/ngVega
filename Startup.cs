@@ -32,6 +32,8 @@ namespace Vega
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // We use scoped to match the DbContext
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
             // Add dependency injection for AutoMapper
             services.AddAutoMapper();
             // Instead of hard-coding the connection string below, we'll set it as a variable elsewhere
