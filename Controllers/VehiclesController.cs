@@ -83,6 +83,10 @@ namespace ngVega.Controllers
 
             await unitOfWork.CompleteAsync();
 
+            // Refetch the vehicle to ensure that we have all related properties 
+            // (modelId for example) as otherwise AutoMapper will say there is no mapping
+            vehicle = await repository.GetVehicle(vehicle.Id);
+
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
             return Ok(result);
