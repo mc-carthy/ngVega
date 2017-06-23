@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace ngVega.Persistence
+namespace ngVega.Core
 {
     public interface IUnitOfWork
     {

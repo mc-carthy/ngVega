@@ -55,3 +55,19 @@ Refactor several API Resource classes as KeyValuePairResource. Also prevents a g
 Implement the Repository pattern to minimise duplicated query logic and decouple the app from EntityFramework
 
 The UnitOfWork pattern is implemented as no single Repository should be used to save its (and only its) objects. The UnitOfWork will save all Repository objects simultaneously.
+
+The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Both should depend on abstractions.
+
+|Controller| |Persistence|
+Controller--->Repository : Bad
+
+|Controller| |       Persistence       |
+Controller--->IRepository<---Repository : Better
+
+|Controller|  |  Core  |    |Persistence|
+Controller--->IRepository<---Repository : Best
+
+This prevents changes in the Repository requiring recompilation of the Controller.
+IRepository tells us what we can do, Repository tells us how.
+
+All links to EF are now in the Persistence folder. If we decide to switch/add an ORM, we add a new class in the Persistence folder to implement the interfaces in the Core folder.

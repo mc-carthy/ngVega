@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ngVega.Controllers.Resources;
 using ngVega.Models;
-using ngVega.Persistence;
+using ngVega.Core;
 
 namespace ngVega.Controllers
 {
@@ -17,7 +17,6 @@ namespace ngVega.Controllers
         private readonly IUnitOfWork unitOfWork;
         public VehiclesController(
             IMapper mapper,
-            VegaDbContext context,
             IVehicleRepository repository,
             IUnitOfWork unitOfWork
         )

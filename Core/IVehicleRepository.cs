@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using ngVega.Models;
 
-namespace ngVega.Persistence
+namespace ngVega.Core
 {
     public interface IVehicleRepository
     {
