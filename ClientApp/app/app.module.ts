@@ -11,6 +11,8 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 
+import { AppErrorHandler } from './app.error-handler';
+import { ErrorHandler } from '@angular/core';
 import { VehicleService } from './services/vehicle.service';
 
 @NgModule({
@@ -37,6 +39,8 @@ import { VehicleService } from './services/vehicle.service';
         ])
     ],
     providers: [
+        // Where Angular wants to use the ErrorHandler class, it should create an instance of AppErrorHandler
+        { provide: ErrorHandler, useClass: AppErrorHandler},
         VehicleService,
     ]
 })
