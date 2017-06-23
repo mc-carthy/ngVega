@@ -51,3 +51,5 @@ Create VehicleResource to prevent malicious user submitting data to the domain c
 Change the Feature list to accept integers instead of Features to simplify API.
 
 Refactor several API Resource classes as KeyValuePairResource. Also prevents a getVehicle call retrieving all of a Make's Models along with the Make name.
+
+Implement the Repository pattern to minimise duplicated query logic and decouple the app from EntityFramework
