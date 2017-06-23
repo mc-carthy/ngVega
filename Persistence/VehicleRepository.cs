@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ngVega.Core;
 using ngVega.Models;
 
 namespace ngVega.Persistence

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ngVega.Persistence;
+using ngVega.Core;
 
 namespace Vega
 {
