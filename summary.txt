@@ -71,3 +71,7 @@ This prevents changes in the Repository requiring recompilation of the Controlle
 IRepository tells us what we can do, Repository tells us how.
 
 All links to EF are now in the Persistence folder. If we decide to switch/add an ORM, we add a new class in the Persistence folder to implement the interfaces in the Core folder.
+
+Layers vs Tiers:
+3-tiered architecture refers to client machine, web server and database server.
+3-layered architecture (can) refer to Presentation, Business and Data Access layers.
