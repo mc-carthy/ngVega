@@ -34,6 +34,7 @@ namespace Vega
         {
             // We use scoped to match the DbContext
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             // Add dependency injection for AutoMapper
             services.AddAutoMapper();
             // Instead of hard-coding the connection string below, we'll set it as a variable elsewhere
