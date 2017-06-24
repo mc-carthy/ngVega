@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleService } from './../../services/vehicle.service';
-import { Vehicle } from './../../models/vehicle';
+import { Vehicle, KeyValuePair } from './../../models/vehicle';
 
 @Component({
     selector: 'app-vehicle-list',
@@ -10,6 +10,10 @@ import { Vehicle } from './../../models/vehicle';
 export class VehicleListComponent implements OnInit {
 
     vehicles: Vehicle[];
+    allVehicles: Vehicle[];
+    makes: KeyValuePair[];
+    models: KeyValuePair[];
+    filter: any = {};
 
     constructor
     (
@@ -18,8 +22,33 @@ export class VehicleListComponent implements OnInit {
     { }
 
     ngOnInit() {
+        this.vehicleService.getMakes()
+            .subscribe(makes => this.makes = makes);
         this.vehicleService.getVehicles()
-            .subscribe(vehicles => this.vehicles = vehicles);
+            .subscribe(vehicles => this.vehicles = this.allVehicles = vehicles);
+    }
+
+    onFilterChange()
+    {
+        var vehicles = this.allVehicles;
+
+        if (this.filter.makeId)
+        {
+            vehicles = vehicles.filter(v => v.make.id == this.filter.makeId);
+        }
+
+        if (this.filter.modelId)
+        {
+            vehicles = vehicles.filter(v => v.model.id == this.filter.modelId);
+        }
+
+        this.vehicles = vehicles;
+    }
+
+    resetFilter ()
+    {
+        this.filter = {};
+        this.onFilterChange();
     }
 
 }
