@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ngVega.Controllers.Resources;
 using ngVega.Models;
 using ngVega.Core;
+using System.Collections.Generic;
 
 namespace ngVega.Controllers
 {
@@ -38,6 +39,14 @@ namespace ngVega.Controllers
             var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
             return Ok(vehicleResource);
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        {
+            var vehicles = await repository.GetVehicles();
+
+            return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         }
 
         // The [FromBody] attribute tells the method that the data for the properties are set in the body of the request
