@@ -38,4 +38,10 @@ export class VehicleService {
             .map(res => res.json());
     }
 
+    delete(vehicleId)
+    {
+        return this.http.delete('/api/vehicles/' + vehicleId)
+            .map(res => res.json());
+    }
+
 }
