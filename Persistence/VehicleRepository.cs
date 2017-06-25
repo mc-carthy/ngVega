@@ -50,16 +50,21 @@ namespace ngVega.Persistence
                 ["id"] = v => v.Id
             };
 
+            query = ApplyOrdering(queryObject, query, columnsMap);
+
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery queryObject, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, Object>>> columnsMap)
+        {
             if (queryObject.IsSortAscending)
             {
-                query.OrderBy(columnsMap[queryObject.SortBy]);
+                return query.OrderBy(columnsMap[queryObject.SortBy]);
             }
             else
             {
-                query.OrderByDescending(columnsMap[queryObject.SortBy]);
+                return query.OrderByDescending(columnsMap[queryObject.SortBy]);
             }
-
-            return await query.ToListAsync();
         }
 
         public void Add(Vehicle vehicle)
