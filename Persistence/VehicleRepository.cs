@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ngVega.Core;
@@ -40,29 +42,21 @@ namespace ngVega.Persistence
                     .ThenInclude(m => m.Make)
                 .AsQueryable();
 
-            if (queryObject.MakeId.HasValue)
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, Object>>>()
             {
-                query = query.Where(v => v.Model.MakeId == queryObject.MakeId.Value);
-            }
+                ["make"] = v => v.Model.Make.Name,
+                ["model"] = v => v.Model.Name,
+                ["contactName"] = v => v.ContactName,
+                ["id"] = v => v.Id
+            };
 
-            if (queryObject.SortBy == "make")
+            if (queryObject.IsSortAscending)
             {
-                query = (queryObject.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
+                query.OrderBy(columnsMap[queryObject.SortBy]);
             }
-
-            if (queryObject.SortBy == "model")
+            else
             {
-                query = (queryObject.IsSortAscending) ? query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
-            }
-
-            if (queryObject.SortBy == "contactName")
-            {
-                query = (queryObject.IsSortAscending) ? query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
-            }
-
-            if (queryObject.SortBy == "id")
-            {
-                query = (queryObject.IsSortAscending) ? query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
+                query.OrderByDescending(columnsMap[queryObject.SortBy]);
             }
 
             return await query.ToListAsync();
