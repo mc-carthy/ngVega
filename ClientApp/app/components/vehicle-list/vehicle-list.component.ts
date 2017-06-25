@@ -27,6 +27,7 @@ export class VehicleListComponent implements OnInit {
         this.populateVehicles();
     }
 
+    // TODO - Implement filtering by model using a cascading dropdown list
     private populateVehicles()
     {
         this.vehicleService.getVehicles(this.filter)
@@ -50,6 +51,8 @@ export class VehicleListComponent implements OnInit {
 
         // this.vehicles = vehicles;
 
+        // Example of how to implement filtering by model
+        // this.filter.modelId = 2;
         this.populateVehicles();
         
     }

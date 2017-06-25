@@ -35,7 +35,7 @@ namespace ngVega.Mapping
                 .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name })));
 
             // API Resource to Domain
-            CreateMap<FilterResource, Filter>();
+            CreateMap<FilterResource, VehicleQuery>();
             CreateMap<SaveVehicleResource, Vehicle>()
                 // This is required to prevent the mapping attempting to change the primary key which will throw an error
                 .ForMember(v => v.Id, opt => opt.Ignore())
